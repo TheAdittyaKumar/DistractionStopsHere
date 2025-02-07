@@ -1,18 +1,19 @@
-import pyautogui
-import time
-import os
+import sys #modify system encoding for better character support
+import pyautogui #will help us send keyboard shortcuts
+import time #introduce delays
+import os #handles file paths and checks file existence
 
-# Define the full image path for YouTube detection
-image_path = r"C:\DistractionStopsHere\youtube_dark.png"
+sys.stdout.reconfigure(encoding='utf-8')  # Ensure UTF-8 output
 
+print("🔍 Monitoring for YouTube...")  # Script is monitoring now!
 
-if not os.path.exists(image_path): # Checks if the image file exists
-    print(f"Error: The image '{image_path}' does not exist.")
-    exit()
+image_path = r"C:\DistractionStopsHere-main\DistractionStopsHere\youtube_dark.png" # Define the full image path for YouTube tab detection
 
-print("🔍 Monitoring for YouTube...")
+if not os.path.exists(image_path): # Checks if the image file exists in the path
+    print(f"Error: The image '{image_path}' does not exist.") #if not
+    exit() 
 
-while True:
+while True: #infinite loop
     try:
         # Try locating the YouTube tab image
         screenShot = pyautogui.locateCenterOnScreen(image_path, confidence=0.6, grayscale=True) # Locate the YouTube tab image
@@ -23,9 +24,9 @@ while True:
             print("🛑 Closed YouTube tab successfully!")
             time.sleep(5)  # Wait 5 seconds before scanning again to prevent instant re-closing
         else:
-            print("🔍 YouTube not detected. Monitoring...")
+            print("🔍 YouTube not detected. Monitoring...") #continue to monitor if YouTube isnt found
         
     except pyautogui.ImageNotFoundException:
-        print("⚠️ Image not found on the screen. Ensure the image is correct.")
+        print("⚠️ Image not found on the screen. Ensure the image is correct.") #catch and handle exceptions if image detection fails
     
     time.sleep(1)  # Check every 1 second
